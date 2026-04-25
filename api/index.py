@@ -1,4 +1,5 @@
 import os
+from mangum import Mangum
 import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,5 +26,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+handler = Mangum(app)
 # API Routes
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
