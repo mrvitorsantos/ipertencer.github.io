@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Pertencer | Nossos Canais</title>
+    <meta name="description" content="Siga a Igreja Pertencer nas redes sociais e fique por dentro de tudo!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #a855f7;
+            --primary-glow: rgba(168, 85, 247, 0.4);
+            --gold: #f59e0b;
+            --gold-light: #fcd34d;
+            --bg: #0a0a12;
+            --surface: rgba(255,255,255,0.04);
+            --border: rgba(255,255,255,0.08);
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem 4rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulse-bg 6s ease-in-out infinite;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Avatar / Logo */
+        .avatar-ring {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--gold));
+            animation: spin-ring 8s linear infinite;
+            margin-bottom: 0.25rem;
+        }
+        @keyframes spin-ring {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #14112a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            color: var(--gold-light);
+        }
+
+        /* Name & bio */
+        .profile-name {
+            font-size: 1.7rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 40%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .profile-bio {
+            font-size: 0.95rem;
+            color: var(--muted);
+            text-align: center;
+            max-width: 320px;
+            line-height: 1.5;
+        }
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: var(--gold-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.85rem;
+            border-radius: 99px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Divider */
+        .divider {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--border);
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Link Cards */
+        .links-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .link-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.25s cubic-bezier(.34,1.56,.64,1),
+                        border-color 0.25s, box-shadow 0.25s, background 0.25s;
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .link-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--card-color, var(--primary)), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .link-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: var(--card-color, var(--primary));
+            box-shadow: 0 12px 40px -8px var(--card-glow, var(--primary-glow));
+        }
+        .link-card:hover::before { opacity: 0.08; }
+        .link-card:active { transform: scale(0.98); }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: var(--card-color, var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px -4px var(--card-glow, var(--primary-glow));
+            transition: transform 0.25s;
+        }
+        .link-card:hover .card-icon { transform: rotate(-5deg) scale(1.1); }
+
+        .card-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+        .card-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .card-arrow {
+            position: relative;
+            z-index: 1;
+            color: var(--muted);
+            font-size: 0.85rem;
+            transition: transform 0.25s, color 0.25s;
+        }
+        .link-card:hover .card-arrow {
+            transform: translateX(4px);
+            color: var(--text);
+        }
+
+        /* Color themes */
+        .card-whatsapp   { --card-color: #25D366; --card-glow: rgba(37,211,102,0.4); }
+        .card-instagram  { --card-color: #E1306C; --card-glow: rgba(225,48,108,0.4); }
+        .card-youtube    { --card-color: #FF0000; --card-glow: rgba(255,0,0,0.35); }
+        .card-facebook   { --card-color: #1877F2; --card-glow: rgba(24,119,242,0.4); }
+        .card-telegram   { --card-color: #2AABEE; --card-glow: rgba(42,171,238,0.4); }
+        .card-site       { --card-color: #a855f7; --card-glow: rgba(168,85,247,0.4); }
+        .card-culto      { --card-color: #f59e0b; --card-glow: rgba(245,158,11,0.4); }
+
+        /* Footer */
+        .footer-link {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: color 0.2s;
+            margin-top: 0.5rem;
+        }
+        .footer-link:hover { color: var(--primary); }
+
+        /* Animate in */
+        .wrapper > * {
+            animation: fade-up 0.5s ease both;
+        }
+        .wrapper > *:nth-child(1) { animation-delay: 0.05s; }
+        .wrapper > *:nth-child(2) { animation-delay: 0.10s; }
+        .wrapper > *:nth-child(3) { animation-delay: 0.15s; }
+        .wrapper > *:nth-child(4) { animation-delay: 0.20s; }
+        .wrapper > *:nth-child(5) { animation-delay: 0.25s; }
+        .wrapper > *:nth-child(6) { animation-delay: 0.30s; }
+        .links-list .link-card:nth-child(1) { animation-delay: 0.35s; }
+        .links-list .link-card:nth-child(2) { animation-delay: 0.42s; }
+        .links-list .link-card:nth-child(3) { animation-delay: 0.49s; }
+        .links-list .link-card:nth-child(4) { animation-delay: 0.56s; }
+        .links-list .link-card:nth-child(5) { animation-delay: 0.63s; }
+        .links-list .link-card:nth-child(6) { animation-delay: 0.70s; }
+        .links-list .link-card:nth-child(7) { animation-delay: 0.77s; }
+        .links-list .link-card { animation: fade-up 0.5s ease both; }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: scale(0);
+            animation: ripple-anim 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        @media (max-width: 400px) {
+            .profile-name { font-size: 1.4rem; }
+            .card-title   { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="wrapper">
+
+        <!-- Avatar -->
+        <div class="avatar-ring">
+            <div class="avatar-inner">
+                <i class="fa-solid fa-church"></i>
+            </div>
+        </div>
+
+        <!-- Name -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+            <h1 class="profile-name">Igreja Pertencer</h1>
+            <span class="profile-badge"><i class="fa-solid fa-star"></i> Comunidade Oficial</span>
+        </div>
+
+        <!-- Bio -->
+        <p class="profile-bio">
+            Uma família para pertencer. 💜<br>
+            Acompanhe nossa comunidade nas redes sociais e fique por dentro de tudo!
+        </p>
+
+        <div class="divider">Nossos Canais</div>
+
+        <!-- Links -->
+        <div class="links-list">
+
+            <!-- WhatsApp -->
+            <a class="link-card card-whatsapp"
+               href="https://wa.me/seunumerodecontato"
+               target="_blank" rel="noopener"
+               id="btn-whatsapp">
+                <div class="card-icon">
+                    <i class="fa-brands fa-whatsapp" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Fale conosco</span>
+                    <span class="card-title">WhatsApp da Igreja</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <!-- Instagram -->
+            <a class="link-card card-instagram"
+               href="https://www.instagram.com/ipertencer/"
+               target="_blank" rel="noopener"
+               id="btn-instagram">
+                <div class="card-icon"
+                     style="background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af);">
+                    <i class="fa-brands fa-instagram" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Nos siga</span>
+                    <span class="card-title">@ipertencer</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <!-- YouTube -->
+            <a class="link-card card-youtube"
+               href="https://youtube.com"
+               target="_blank" rel="noopener"
+               id="btn-youtube">
+                <div class="card-icon">
+                    <i class="fa-brands fa-youtube" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Assista online</span>
+                    <span class="card-title">Canal no YouTube</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <!-- Facebook -->
+            <a class="link-card card-facebook"
+               href="https://facebook.com"
+               target="_blank" rel="noopener"
+               id="btn-facebook">
+                <div class="card-icon">
+                    <i class="fa-brands fa-facebook-f" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Curta nossa página</span>
+                    <span class="card-title">Facebook</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <!-- Telegram -->
+            <a class="link-card card-telegram"
+               href="https://t.me/igrejapertencer"
+               target="_blank" rel="noopener"
+               id="btn-telegram">
+                <div class="card-icon">
+                    <i class="fa-brands fa-telegram" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Grupo oficial</span>
+                    <span class="card-title">Telegram</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <!-- Culto Online -->
+            <a class="link-card card-culto"
+               href="index.html#lives"
+               id="btn-culto">
+                <div class="card-icon">
+                    <i class="fa-solid fa-video" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Ao vivo</span>
+                    <span class="card-title">Assistir Culto Online</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <!-- Site -->
+            <a class="link-card card-site"
+               href="index.html"
+               id="btn-site">
+                <div class="card-icon">
+                    <i class="fa-solid fa-globe" style="color:#fff;"></i>
+                </div>
+                <div class="card-text">
+                    <span class="card-label">Acesse</span>
+                    <span class="card-title">Nosso Site Oficial</span>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+        </div>
+
+        <!-- Footer -->
+        <a class="footer-link" href="index.html">
+            <i class="fa-solid fa-church"></i>
+            Igreja Pertencer &copy; 2026
+        </a>
+
+    </div>
+
+    <script>
+        // Floating particles
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+            p.style.animationDuration = (Math.random() * 12 + 8) + 's';
+            p.style.animationDelay = (Math.random() * 10) + 's';
+            p.style.background = Math.random() > 0.5 ? '#a855f7' : '#f59e0b';
+            container.appendChild(p);
+        }
+
+        // Ripple effect on cards
+        document.querySelectorAll('.link-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 700);
+            });
+        });
+    </script>
+</body>
+</html>

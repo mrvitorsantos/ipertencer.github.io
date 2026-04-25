@@ -186,12 +186,14 @@
         </div>
     </div>
 
-    <script>
-        function toggleForm(e) {
+    <script type="module">
+        import { supabase } from './supabase.js';
+
+        // --- Toggle entre login e cadastro ---
+        window.toggleForm = function(e) {
             e.preventDefault();
             const loginSection = document.getElementById('login-section');
             const registerSection = document.getElementById('register-section');
-            
             if (loginSection.style.display === 'none') {
                 loginSection.style.display = 'block';
                 registerSection.style.display = 'none';
@@ -201,54 +203,109 @@
             }
         }
 
+        // --- Helpers de UI ---
+        function setLoading(btn, loading, originalHTML) {
+            if (loading) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aguarde...';
+                btn.disabled = true;
+            } else {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        }
+
+        function showError(message) {
+            // Remove alerta anterior se existir
+            document.querySelectorAll('.auth-alert').forEach(el => el.remove());
+            const alert = document.createElement('div');
+            alert.className = 'auth-alert';
+            alert.style.cssText = `
+                background: rgba(239,68,68,0.15);
+                border: 1px solid rgba(239,68,68,0.4);
+                color: #fca5a5;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            `;
+            alert.textContent = message;
+            return alert;
+        }
+
+        function showSuccess(message) {
+            document.querySelectorAll('.auth-alert').forEach(el => el.remove());
+            const alert = document.createElement('div');
+            alert.className = 'auth-alert';
+            alert.style.cssText = `
+                background: rgba(16,185,129,0.15);
+                border: 1px solid rgba(16,185,129,0.4);
+                color: #6ee7b7;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            `;
+            alert.textContent = message;
+            return alert;
+        }
+
+        // --- Cadastro ---
         document.getElementById('form-register').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('reg-name').value;
-            const email = document.getElementById('reg-email').value;
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
 
-            try {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password })
-                });
-                
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Cadastro realizado com sucesso! Faça login.');
-                    toggleForm(new Event('click')); // Vai para login
-                } else {
-                    alert('Erro no cadastro: ' + data.detail);
-                }
-            } catch (error) {
-                alert('Erro de conexão com o servidor.');
+            setLoading(btn, true, originalHTML);
+
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: { data: { name } }
+            });
+
+            setLoading(btn, false, originalHTML);
+
+            const form = document.getElementById('register-section');
+            if (error) {
+                form.insertBefore(showError('Erro no cadastro: ' + error.message), e.target);
+            } else {
+                form.insertBefore(showSuccess('✅ Cadastro realizado! Verifique seu e-mail para confirmar.'), e.target);
+                e.target.reset();
+                setTimeout(() => window.toggleForm(new Event('click')), 2500);
             }
         });
 
+        // --- Login ---
         document.getElementById('form-login').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('login-email').value;
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
 
-            try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                
-                const data = await response.json();
-                if (response.ok) {
-                    localStorage.setItem('userSession', JSON.stringify(data.session));
-                    window.location.href = 'index.html';
-                } else {
-                    alert('Erro no login: ' + data.detail);
-                }
-            } catch (error) {
-                alert('Erro de conexão com o servidor.');
+            setLoading(btn, true, originalHTML);
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+            setLoading(btn, false, originalHTML);
+
+            const form = document.getElementById('login-section');
+            if (error) {
+                form.insertBefore(showError('E-mail ou senha incorretos.'), e.target);
+            } else {
+                // Supabase persiste a sessão automaticamente no localStorage
+                window.location.href = 'index.html';
             }
         });
+
+        // --- Redireciona se já está logado ---
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
