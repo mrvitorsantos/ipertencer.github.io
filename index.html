@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Pertencer | Uma família para pertencer</title>
+    <meta name="description"
+        content="Bem-vindo à Igreja Pertencer. Acompanhe nossas lives, cursos de discipulado, palavra do dia e seja um membro da nossa família.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon"><i class="fa-solid fa-church"></i></span>
+                <div class="logo-text">Igreja <span>Pertencer</span></div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#palavra">Palavra do Dia</a>
+                <a href="#lives">Lives</a>
+                <a href="#cursos">Cursos</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="social-links">
+                    <a href="https://www.instagram.com/ipertencer/" target="_blank" aria-label="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://wa.me/seunumerodecontato" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                </div>
+                <a href="login.html" class="btn btn-primary" id="desktop-auth-btn">Login/Cadastro</a>
+                <a href="#" class="btn btn-icon" id="desktop-profile-btn" style="display: none; font-size: 1.8rem; color: var(--primary);" title="Sair da Conta" onclick="logout()"><i class="fa-solid fa-user-circle"></i></a>
+
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <nav class="mobile-nav-links">
+                <a href="#palavra">Palavra do Dia</a>
+                <a href="#lives">Lives</a>
+                <a href="#cursos">Cursos</a>
+                <a href="login.html" class="btn btn-primary btn-block" style="margin-top: 1rem;" id="mobile-auth-btn">Login/Cadastro</a>
+                <a href="#" class="btn btn-outline btn-block" style="margin-top: 1rem; display: none;" id="mobile-profile-btn" onclick="logout()"><i class="fa-solid fa-user-circle"></i> Sair da Conta</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="animate-up">Bem-vindo à sua<br>nova <span>família</span>.</h1>
+            <p class="animate-up delay-1">Um lugar de amor, graça e transformação. Faça parte da Igreja Pertencer.</p>
+            <div class="hero-buttons animate-up delay-2">
+                <a href="#cadastro" class="btn btn-primary btn-large">Quero Fazer Parte</a>
+                <a href="#lives" class="btn btn-outline btn-large">Culto ao Vivo <i class="fa-solid fa-play"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Palavra do Dia -->
+    <section class="section palavra-section" id="palavra">
+        <div class="container">
+            <div class="section-header">
+                <h2>Palavra do Dia</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="verse-card glass-card">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <blockquote id="daily-verse">
+                    "Mas os que esperam no Senhor renovarão as suas forças. Subirão com asas como águias; correrão, e
+                    não se cansarão; caminharão, e não se fatigarão."
+                </blockquote>
+                <cite id="daily-reference">- Isaías 40:31</cite>
+                <button class="btn btn-icon btn-share" title="Compartilhar no WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i> Compartilhar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lives -->
+    <section class="section lives-section" id="lives">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Nossas Lives</h2>
+                <p>Acompanhe nossos cultos de onde estiver</p>
+                <div class="line center"></div>
+            </div>
+
+            <div class="lives-grid">
+                <div class="live-card live-now">
+                    <div class="live-thumbnail">
+                        <div class="badge-live">AO VIVO</div>
+                        <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Culto ao Vivo">
+                        <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="live-info">
+                        <h3>Culto de Celebração</h3>
+                        <p>Domingo - 18:00</p>
+                    </div>
+                </div>
+
+                <div class="live-card">
+                    <div class="live-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Culto Anterior">
+                        <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="live-info">
+                        <h3>Culto de Ensino</h3>
+                        <p>Quarta-feira - 20:00</p>
+                    </div>
+                </div>
+
+                <div class="live-card">
+                    <div class="live-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1478147427282-58a87a120781?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Culto de Jovens">
+                        <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="live-info">
+                        <h3>Rede de Jovens</h3>
+                        <p>Sábado - 19:30</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="https://youtube.com" target="_blank" class="btn btn-outline"><i
+                        class="fa-brands fa-youtube"></i> Ver Canal no YouTube</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cursos de Discipulado -->
+    <section class="section cursos-section" id="cursos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cursos de Discipulado</h2>
+                <p>Cresça no conhecimento e na graça</p>
+                <div class="line"></div>
+            </div>
+
+            <div class="cursos-grid">
+                <div class="curso-card">
+                    <div class="curso-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <h3>Primeiros Passos</h3>
+                    <p>Ideal para novos convertidos. Aprenda os fundamentos da fé cristã e como iniciar sua caminhada
+                        com Jesus.</p>
+                    <a href="#" class="curso-link">Saiba Mais <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="curso-card">
+                    <div class="curso-icon"><i class="fa-solid fa-book-bible"></i></div>
+                    <h3>Maturidade Espiritual</h3>
+                    <p>Aprofunde-se nas escrituras, aprenda sobre os dons do Espírito Santo e descubra o seu chamado.
+                    </p>
+                    <a href="#" class="curso-link">Saiba Mais <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="curso-card">
+                    <div class="curso-icon"><i class="fa-solid fa-users"></i></div>
+                    <h3>Liderança e Serviço</h3>
+                    <p>Preparação para servir no ministério, liderar pequenos grupos e influenciar pessoas para o Reino.
+                    </p>
+                    <a href="#" class="curso-link">Saiba Mais <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cadastro de Membros -->
+    <section class="section cadastro-section" id="cadastro">
+        <div class="container">
+            <div class="cadastro-wrapper glass-card">
+                <div class="cadastro-info">
+                    <h2>Seja um Membro</h2>
+                    <p>Preencha o formulário para atualizar seu cadastro ou se tornar um novo membro da Igreja
+                        Pertencer. Nossa secretaria entrará em contato com você.</p>
+
+                    <div class="contact-methods">
+                        <div class="contact-item">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp da Secretaria</h4>
+                                <p>(00) 90000-0000</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <h4>E-mail</h4>
+                                <p>contato@igrejapertencer.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h4>Endereço</h4>
+                                <p>Rua Exemplo, 123, Centro</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cadastro-form-container">
+                    <form id="cadastroForm" class="form">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefone">WhatsApp</label>
+                                <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="data-nasc">Data de Nascimento</label>
+                                <input type="date" id="data-nasc" name="data-nasc" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="situacao">Você já é batizado(a)?</label>
+                            <select id="situacao" name="situacao">
+                                <option value="" disabled selected>Selecione uma opção</option>
+                                <option value="sim">Sim, na Igreja Pertencer</option>
+                                <option value="sim-outra">Sim, em outra igreja</option>
+                                <option value="nao">Ainda não</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Enviar Cadastro <i
+                                class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo footer-logo">
+                    <span class="logo-icon"><i class="fa-solid fa-church"></i></span>
+                    <div class="logo-text">Igreja <span>Pertencer</span></div>
+                </a>
+                <p>Nossa missão é amar a Deus e amar as pessoas, fazendo discípulos em todas as nações.</p>
+                <div class="social-links footer-social">
+                    <a href="https://www.instagram.com/ipertencer/" target="_blank" aria-label="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://wa.me/seunumerodecontato" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i
+                            class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Acesso Rápido</h3>
+                <ul>
+                    <li><a href="#palavra">Palavra do Dia</a></li>
+                    <li><a href="#lives">Cultos Online</a></li>
+                    <li><a href="#cursos">Discipulado</a></li>
+                    <li><a href="#cadastro">Seja Membro</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Horários de Culto</h3>
+                <ul>
+                    <li><strong>Domingo:</strong> 18:00 (Celebração)</li>
+                    <li><strong>Quarta:</strong> 20:00 (Ensino)</li>
+                    <li><strong>Sábado:</strong> 19:30 (Jovens)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Igreja Pertencer. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const session = localStorage.getItem('userSession');
+            if (session) {
+                const desktopAuth = document.getElementById('desktop-auth-btn');
+                const desktopProfile = document.getElementById('desktop-profile-btn');
+                const mobileAuth = document.getElementById('mobile-auth-btn');
+                const mobileProfile = document.getElementById('mobile-profile-btn');
+                
+                if (desktopAuth) desktopAuth.style.display = 'none';
+                if (desktopProfile) desktopProfile.style.display = 'inline-flex';
+                
+                if (mobileAuth) mobileAuth.style.display = 'none';
+                if (mobileProfile) mobileProfile.style.display = 'block';
+            }
+        });
+
+        function logout() {
+            if(confirm("Deseja realmente sair da sua conta?")) {
+                localStorage.removeItem('userSession');
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+
+</html>

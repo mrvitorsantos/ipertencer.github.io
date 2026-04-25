@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Igreja Pertencer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            position: relative;
+            padding: 2rem;
+        }
+        .login-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            z-index: 1;
+            padding: 3rem;
+            text-align: center;
+            border-top: 3px solid var(--primary);
+        }
+        .login-container .logo {
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .login-form {
+            text-align: left;
+        }
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .login-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: white;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 174, 239, 0.2);
+        }
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .login-options a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .login-options a:hover {
+            text-decoration: underline;
+        }
+        .toggle-form {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+        .toggle-form a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+        .btn-back {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 2;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            opacity: 0.8;
+            background: rgba(0,0,0,0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-color);
+        }
+        .btn-back:hover {
+            opacity: 1;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="btn-back animate-up delay-1"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+    <div class="login-page">
+        <div class="login-overlay"></div>
+        <div class="login-container glass-card animate-up">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fa-solid fa-church"></i></span>
+                <div class="logo-text">Igreja <span>Pertencer</span></div>
+            </a>
+            
+            <!-- Formulário de Login -->
+            <div id="login-section">
+                <h2 style="margin-bottom: 0.5rem;">Área do Membro</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem;">Faça login para acessar a plataforma</p>
+                
+                <form class="login-form" id="form-login">
+                    <div class="form-group">
+                        <label for="login-email">E-mail</label>
+                        <input type="email" id="login-email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Senha</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                    </div>
+                    <div class="login-options">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; margin: 0; cursor: pointer;">
+                            <input type="checkbox" style="width: auto;"> Lembrar-me
+                        </label>
+                        <a href="#">Esqueceu a senha?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Entrar <i class="fa-solid fa-arrow-right"></i></button>
+                </form>
+                
+                <div class="toggle-form">
+                    Ainda não tem cadastro? <a href="#" onclick="toggleForm(event)">Criar uma conta</a>
+                </div>
+            </div>
+
+            <!-- Formulário de Cadastro -->
+            <div id="register-section" style="display: none;">
+                <h2 style="margin-bottom: 0.5rem;">Nova Conta</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem;">Cadastre-se para se tornar membro</p>
+                
+                <form class="login-form" id="form-register">
+                    <div class="form-group">
+                        <label for="reg-name">Nome Completo</label>
+                        <input type="text" id="reg-name" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">E-mail</label>
+                        <input type="email" id="reg-email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Senha</label>
+                        <input type="password" id="reg-password" required placeholder="Crie uma senha">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar-se <i class="fa-solid fa-check"></i></button>
+                </form>
+                
+                <div class="toggle-form">
+                    Já possui uma conta? <a href="#" onclick="toggleForm(event)">Fazer Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(e) {
+            e.preventDefault();
+            const loginSection = document.getElementById('login-section');
+            const registerSection = document.getElementById('register-section');
+            
+            if (loginSection.style.display === 'none') {
+                loginSection.style.display = 'block';
+                registerSection.style.display = 'none';
+            } else {
+                loginSection.style.display = 'none';
+                registerSection.style.display = 'block';
+            }
+        }
+
+        document.getElementById('form-register').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Cadastro realizado com sucesso! Faça login.');
+                    toggleForm(new Event('click')); // Vai para login
+                } else {
+                    alert('Erro no cadastro: ' + data.detail);
+                }
+            } catch (error) {
+                alert('Erro de conexão com o servidor.');
+            }
+        });
+
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('userSession', JSON.stringify(data.session));
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Erro no login: ' + data.detail);
+                }
+            } catch (error) {
+                alert('Erro de conexão com o servidor.');
+            }
+        });
+    </script>
+</body>
+</html>
