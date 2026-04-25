@@ -3,10 +3,10 @@ import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Hack para a Vercel encontrar os módulos locais na pasta api/
-sys.path.append(os.path.dirname(__file__))
+# Adiciona a raiz do projeto ao PATH para que o Python encontre o pacote 'api'
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from routes.auth import router as auth_router
+from api.routes.auth import router as auth_router
 
 app = FastAPI(title="Igreja Pertencer API")
 
