@@ -12,7 +12,7 @@ if current_dir not in sys.path:
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from api.routes.auth import router as auth_router
+from routes.auth import router as auth_router
 
 app = FastAPI(title="Igreja Pertencer API")
 
