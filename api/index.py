@@ -3,8 +3,14 @@ import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Adiciona a raiz do projeto ao PATH para que o Python encontre o pacote 'api'
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+# Garante que o diretório 'api' e a raiz do projeto estão no PATH de busca
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_dir)
+
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 from api.routes.auth import router as auth_router
 
