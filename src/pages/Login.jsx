@@ -31,6 +31,20 @@ const Login = () => {
     });
   }, [location, navigate]);
 
+  const handleSocialLogin = async (provider) => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: provider,
+      options: {
+        redirectTo: window.location.origin
+      }
+    });
+    if (error) {
+      setMessage({ type: 'error', text: `Erro no login social: ${error.message}` });
+      setLoading(false);
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -51,7 +65,7 @@ const Login = () => {
     setLoading(true);
     setMessage({ type: '', text: '' });
 
-    const { error } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
       options: { 
@@ -59,14 +73,41 @@ const Login = () => {
       }
     });
 
-    if (error) {
-      setMessage({ type: 'error', text: 'Erro no cadastro: ' + error.message });
+    if (authError) {
+      setMessage({ type: 'error', text: 'Erro no cadastro: ' + authError.message });
       setLoading(false);
-    } else {
-      setMessage({ type: 'success', text: '✅ Cadastro realizado! Verifique seu e-mail.' });
-      setLoading(false);
-      setTimeout(() => setIsLogin(true), 3000);
+      return;
     }
+
+    // Se o Auth deu certo, salvamos os dados na tabela 'Membros'
+    if (authData?.user) {
+      const { error: dbError } = await supabase
+        .from('Membros')
+        .insert([
+          { 
+            id: authData.user.id,
+            nome: name,
+            email: email,
+            whatsapp: phone,
+            nascimento: birth,
+            batizado: batismo
+          }
+        ]);
+
+      if (dbError) {
+        console.error('Erro no Banco de Dados:', dbError);
+        setMessage({ 
+          type: 'error', 
+          text: `Auth OK, mas erro no Banco: ${dbError.message}. Verifique as permissões RLS.` 
+        });
+        setLoading(false);
+        return; // Para o fluxo aqui se der erro no banco
+      }
+    }
+
+    setMessage({ type: 'success', text: '✅ Cadastro realizado com sucesso! Verifique seu e-mail.' });
+    setLoading(false);
+    setTimeout(() => setIsLogin(true), 3000);
   };
 
   return (
@@ -109,6 +150,19 @@ const Login = () => {
               <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
                 {loading ? <><i className="fa-solid fa-spinner fa-spin"></i> Aguarde...</> : <>Entrar <i className="fa-solid fa-arrow-right"></i></>}
               </button>
+
+              <div className="social-divider">
+                <span>Ou entre com</span>
+              </div>
+
+              <div className="social-buttons">
+                <button type="button" className="btn-social google" onClick={() => handleSocialLogin('google')} disabled={loading}>
+                  <i className="fa-brands fa-google"></i> Google
+                </button>
+                <button type="button" className="btn-social apple" onClick={() => handleSocialLogin('apple')} disabled={loading}>
+                  <i className="fa-brands fa-apple"></i> Apple
+                </button>
+              </div>
             </form>
             
             <div className="toggle-form">
@@ -155,6 +209,19 @@ const Login = () => {
               <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
                 {loading ? <><i className="fa-solid fa-spinner fa-spin"></i> Aguarde...</> : <>Enviar Cadastro <i className="fa-solid fa-paper-plane"></i></>}
               </button>
+
+              <div className="social-divider">
+                <span>Ou use redes sociais</span>
+              </div>
+
+              <div className="social-buttons">
+                <button type="button" className="btn-social google" onClick={() => handleSocialLogin('google')} disabled={loading}>
+                  <i className="fa-brands fa-google"></i> Google
+                </button>
+                <button type="button" className="btn-social apple" onClick={() => handleSocialLogin('apple')} disabled={loading}>
+                  <i className="fa-brands fa-apple"></i> Apple
+                </button>
+              </div>
             </form>
             
             <div className="toggle-form">
