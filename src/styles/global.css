@@ -49,7 +49,17 @@ body {
   line-height: 1.6;
   background-color: var(--bg-darker);
   color: var(--text-light);
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transição suave para todos os elementos que usam variáveis de tema */
+.glass-card, .navbar, .footer, .btn, input, select, aside, main {
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Utilities */
