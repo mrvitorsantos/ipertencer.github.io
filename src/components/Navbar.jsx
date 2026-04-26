@@ -63,9 +63,9 @@ const Navbar = () => {
           {!session ? (
             <Link to="/login" className="btn btn-primary">Login/Cadastro</Link>
           ) : (
-            <button className="btn btn-icon" onClick={handleLogout} style={{ fontSize: '1.8rem', color: '#00AEEF' }} title="Sair da Conta">
-              <i className="fa-solid fa-user-circle"></i>
-            </button>
+            <Link to="/perfil" className="btn btn-icon" style={{ fontSize: '1.8rem', color: '#00AEEF' }} title="Meu Perfil">
+              <i className="fa-solid fa-circle-user"></i>
+            </Link>
           )}
 
           <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -84,9 +84,9 @@ const Navbar = () => {
           {!session ? (
             <Link to="/login" className="btn btn-primary btn-block" style={{ marginTop: '1rem' }}>Login/Cadastro</Link>
           ) : (
-            <button className="btn btn-outline btn-block" style={{ marginTop: '1rem' }} onClick={handleLogout}>
-              <i className="fa-solid fa-user-circle"></i> Sair da Conta
-            </button>
+            <Link to="/perfil" className="btn btn-outline btn-block" style={{ marginTop: '1rem' }} onClick={() => setIsMenuOpen(false)}>
+              <i className="fa-solid fa-circle-user"></i> Ver Perfil
+            </Link>
           )}
         </nav>
       </div>
