@@ -104,6 +104,10 @@ const Profile = () => {
       <div className="profile-container glass-card">
         {/* Sidebar */}
         <aside className="profile-sidebar">
+          <Link to="/" className="back-to-home">
+            <i className="fa-solid fa-house"></i> Voltar ao Início
+          </Link>
+          
           <div className="user-info">
             <div className="user-avatar" onClick={() => setActiveTab('avatar-select')} style={{ cursor: 'pointer' }} title="Mudar Avatar">
               <i className={`fa-solid ${profile.avatar}`}></i>

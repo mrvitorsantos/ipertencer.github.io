@@ -137,7 +137,21 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    color: white;
+    color: var(--text-light);
+}
+
+.back-to-home {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+.back-to-home:hover {
+    color: var(--primary);
 }
 
 /* Courses */
