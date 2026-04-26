@@ -1,29 +1,34 @@
 :root {
-  /* Color Palette - Dark Premium Theme */
+  /* Default Theme (Dark) */
   --bg-dark: #111111;
   --bg-darker: #000000;
   --bg-card: rgba(26, 26, 26, 0.7);
-  
-  --primary: #00AEEF; /* Cyan from logo */
+  --primary: #00AEEF;
   --primary-hover: #0095CC;
+  --primary-glow: rgba(0, 174, 239, 0.2);
   --secondary: #ffffff;
-  
   --text-light: #ffffff;
   --text-muted: #a1a1aa;
-  
   --border-color: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.05);
+  --nav-bg: rgba(0, 0, 0, 0.9);
   
-  /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
-  /* Transitions & Shadows */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+[data-theme="light"] {
+  --bg-dark: #f8fafc;
+  --bg-darker: #f1f5f9;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --text-light: #0f172a;
+  --text-muted: #64748b;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --nav-bg: rgba(248, 250, 252, 0.95);
+  --primary-glow: rgba(0, 174, 239, 0.1);
 }
 
 * {
@@ -42,6 +47,9 @@ html {
 body {
   overflow-x: hidden;
   line-height: 1.6;
+  background-color: var(--bg-darker);
+  color: var(--text-light);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Utilities */

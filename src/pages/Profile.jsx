@@ -9,16 +9,32 @@ const Profile = () => {
     nome: '',
     whatsapp: '',
     nascimento: '',
-    batizado: ''
+    batizado: '',
+    avatar: 'fa-user', // Ícone padrão
+    theme: 'dark'      // Tema padrão
   });
   const [activeTab, setActiveTab] = useState('perfil');
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
 
+  const avatars = [
+    'fa-user', 'fa-user-ninja', 'fa-user-tie', 'fa-user-graduate', 
+    'fa-user-doctor', 'fa-user-astronaut', 'fa-crown', 'fa-star'
+  ];
+
   useEffect(() => {
     getProfile();
+    // Carrega tema salvo
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
+
+  const changeTheme = (newTheme) => {
+    setProfile(prev => ({ ...prev, theme: newTheme }));
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   async function getProfile() {
     try {
@@ -89,8 +105,9 @@ const Profile = () => {
         {/* Sidebar */}
         <aside className="profile-sidebar">
           <div className="user-info">
-            <div className="user-avatar">
-              <i className="fa-solid fa-user"></i>
+            <div className="user-avatar" onClick={() => setActiveTab('avatar-select')} style={{ cursor: 'pointer' }} title="Mudar Avatar">
+              <i className={`fa-solid ${profile.avatar}`}></i>
+              <div className="avatar-edit-overlay"><i className="fa-solid fa-camera"></i></div>
             </div>
             <h3>{profile.nome || 'Membro'}</h3>
             <p>{user?.email}</p>
@@ -152,6 +169,26 @@ const Profile = () => {
             </div>
           )}
 
+          {activeTab === 'avatar-select' && (
+            <div className="tab-pane">
+              <h2>Escolha seu Avatar</h2>
+              <div className="avatar-grid">
+                {avatars.map(icon => (
+                  <div 
+                    key={icon} 
+                    className={`avatar-option ${profile.avatar === icon ? 'active' : ''}`}
+                    onClick={() => setProfile({...profile, avatar: icon})}
+                  >
+                    <i className={`fa-solid ${icon}`}></i>
+                  </div>
+                ))}
+              </div>
+              <button className="btn btn-primary" style={{ marginTop: '2rem' }} onClick={() => { updateProfile(); setActiveTab('perfil'); }}>
+                Confirmar Avatar
+              </button>
+            </div>
+          )}
+
           {activeTab === 'cursos' && (
             <div className="tab-pane">
               <h2>Progresso nos Cursos</h2>
@@ -202,17 +239,20 @@ const Profile = () => {
               <div className="settings-options">
                 <div className="setting-item">
                   <div>
+                    <h4>Tema da Interface</h4>
+                    <p>Escolha entre o modo escuro, claro ou seguir o sistema.</p>
+                  </div>
+                  <div className="theme-selector">
+                    <button className={profile.theme === 'dark' ? 'active' : ''} onClick={() => changeTheme('dark')}>Escuro</button>
+                    <button className={profile.theme === 'light' ? 'active' : ''} onClick={() => changeTheme('light')}>Claro</button>
+                  </div>
+                </div>
+                <div className="setting-item">
+                  <div>
                     <h4>Alterar Senha</h4>
                     <p>Mude sua senha de acesso periodicamente.</p>
                   </div>
                   <button className="btn btn-outline">Alterar</button>
-                </div>
-                <div className="setting-item">
-                  <div>
-                    <h4>Autenticação em duas etapas</h4>
-                    <p>Adicione uma camada extra de proteção.</p>
-                  </div>
-                  <button className="btn btn-outline">Ativar</button>
                 </div>
               </div>
             </div>
