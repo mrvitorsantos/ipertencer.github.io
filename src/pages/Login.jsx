@@ -68,8 +68,8 @@ const Login = () => {
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { 
-        data: { name, phone, birth, batismo } 
+      options: {
+        data: { name, phone, birth, batismo }
       }
     });
 
@@ -84,7 +84,7 @@ const Login = () => {
       const { error: dbError } = await supabase
         .from('Membros')
         .insert([
-          { 
+          {
             id: authData.user.id,
             nome: name,
             email: email,
@@ -96,9 +96,9 @@ const Login = () => {
 
       if (dbError) {
         console.error('Erro no Banco de Dados:', dbError);
-        setMessage({ 
-          type: 'error', 
-          text: `Auth OK, mas erro no Banco: ${dbError.message}. Verifique as permissões RLS.` 
+        setMessage({
+          type: 'error',
+          text: `Auth OK, mas erro no Banco: ${dbError.message}. Verifique as permissões RLS.`
         });
         setLoading(false);
         return; // Para o fluxo aqui se der erro no banco
@@ -114,7 +114,7 @@ const Login = () => {
     <div className="login-page">
       <Link to="/" className="btn-back"><i className="fa-solid fa-arrow-left"></i> Voltar</Link>
       <div className="login-overlay"></div>
-      
+
       <div className="login-container glass-card">
         <Link to="/" className="logo">
           <span className="logo-icon"><i className="fa-solid fa-church"></i></span>
@@ -131,7 +131,7 @@ const Login = () => {
           <div id="login-section">
             <h2 style={{ marginBottom: '0.5rem' }}>Área do Membro</h2>
             <p style={{ color: '#a1a1aa', marginBottom: '2rem', fontSize: '0.95rem' }}>Faça login para acessar a plataforma</p>
-            
+
             <form className="login-form" onSubmit={handleLogin}>
               <div className="form-group">
                 <label>E-mail</label>
@@ -164,7 +164,7 @@ const Login = () => {
                 </button>
               </div>
             </form>
-            
+
             <div className="toggle-form">
               Ainda não tem cadastro? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(false); }}>Criar uma conta</a>
             </div>
@@ -173,7 +173,7 @@ const Login = () => {
           <div id="register-section">
             <h2 style={{ marginBottom: '0.5rem' }}>Seja um Membro</h2>
             <p style={{ color: '#a1a1aa', marginBottom: '2rem', fontSize: '0.95rem' }}>Preencha os dados abaixo. Nossa secretaria entrará em contato.</p>
-            
+
             <form className="login-form" onSubmit={handleRegister}>
               <div className="form-group">
                 <label>Nome Completo</label>
@@ -223,7 +223,7 @@ const Login = () => {
                 </button>
               </div>
             </form>
-            
+
             <div className="toggle-form">
               Já possui uma conta? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(true); }}>Fazer Login</a>
             </div>

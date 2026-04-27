@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [session, setSession] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
     // Scroll listener
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -26,24 +17,17 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      subscription.unsubscribe();
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const handleLogout = async () => {
-    if (window.confirm("Deseja realmente sair da sua conta?")) {
-      await supabase.auth.signOut();
-      navigate('/');
-    }
-  };
-
   return (
-    <header className={`navbar ${isScrolled ? 'scrolled' : ''}`} id="navbar">
+    <header className={`navbar ${isScrolled ? 'scrolled' : ''} ${isAdmin ? 'admin-mode' : ''}`} id="navbar">
       <div className="container nav-container">
         <Link to="/" className="logo">
           <span className="logo-icon"><i className="fa-solid fa-church"></i></span>
           <div className="logo-text">Igreja <span>Pertencer</span></div>
+          {isAdmin && <span className="admin-badge">ADMIN</span>}
         </Link>
 
         <nav className="nav-links">
@@ -51,6 +35,7 @@ const Navbar = () => {
           <a href="/#lives">Lives</a>
           <a href="/#cursos">Cursos</a>
           <Link to="/propagador">Links</Link>
+          {isAdmin && <Link to="/admin" className="admin-link">Painel Admin</Link>}
         </nav>
 
         <div className="nav-actions">
@@ -60,7 +45,7 @@ const Navbar = () => {
             <a href="https://wa.me/seunumerodecontato" target="_blank" rel="noreferrer"><i className="fa-brands fa-whatsapp"></i></a>
           </div>
 
-          {!session ? (
+          {!user ? (
             <Link to="/login" className="btn btn-primary">Login/Cadastro</Link>
           ) : (
             <Link to="/perfil" className="btn btn-icon" style={{ fontSize: '1.8rem', color: '#00AEEF' }} title="Meu Perfil">
@@ -81,7 +66,8 @@ const Navbar = () => {
           <a href="/#lives" onClick={() => setIsMenuOpen(false)}>Lives</a>
           <a href="/#cursos" onClick={() => setIsMenuOpen(false)}>Cursos</a>
           <Link to="/propagador" onClick={() => setIsMenuOpen(false)}>Links</Link>
-          {!session ? (
+          {isAdmin && <Link to="/admin" onClick={() => setIsMenuOpen(false)} style={{ color: '#9333ea', fontWeight: 'bold' }}>Painel Admin</Link>}
+          {!user ? (
             <Link to="/login" className="btn btn-primary btn-block" style={{ marginTop: '1rem' }}>Login/Cadastro</Link>
           ) : (
             <Link to="/perfil" className="btn btn-outline btn-block" style={{ marginTop: '1rem' }} onClick={() => setIsMenuOpen(false)}>

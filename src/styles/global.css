@@ -199,6 +199,31 @@ ul {
   color: var(--text-muted);
 }
 
+.admin-badge {
+  background: #9333ea;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  margin-left: -0.25rem;
+  margin-top: -1rem;
+  box-shadow: 0 0 10px rgba(147, 51, 234, 0.4);
+}
+
+.navbar.admin-mode {
+  border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+}
+
+.admin-link {
+  color: #9333ea !important;
+  font-weight: 700 !important;
+}
+
+.admin-link:hover {
+  color: #a855f7 !important;
+}
+
 .nav-links {
   display: none;
 }
